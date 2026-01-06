@@ -9,24 +9,23 @@ COLORS = ["PRETA", "VERMELHA"]
 
 
 def get_fake_result():
-    # Simula o resultado do site
     return random.choice(COLORS)
 
 
 def fake_place_bet(value: int, color: str):
-    print(f"🪙 [FAKE] Apostando {value} na {color}")
+    print(f" Apostando {value} na {color}")
 
 
 async def execute_signal(signal: dict):
     signal_id = str(uuid.uuid4())[:8]
     start_time = datetime.now()
 
-    print(f"\n🎯 EXECUTANDO SINAL FAKE [{signal_id}] {signal['time']} | {signal['color']}")
+    print(f"\n EXECUTANDO SINAL FAKE [{signal_id}] {signal['time']} | {signal['color']}")
 
     strategy = MartingaleStrategy(
         base_bet=5,
         max_losses=3,
-        wait_between_spins=None  # ⬅️ tempo real vem do timing.py
+        wait_between_spins=None
     )
 
     result = await strategy.run(

@@ -7,28 +7,11 @@ from app.storage.execution_store import save_execution
 
 class PlaywrightExecutor:
     def __init__(self, page):
-        self.page = page  # página já logada
-
+        self.page = page 
     async def get_result(self) -> str:
-        """
-        Lê o resultado atual da roleta
-        Retorna: 'PRETA' ou 'VERMELHA'
-        """
-        # EXEMPLO (trocar seletores)
-        # color = await self.page.locator(".result-color").inner_text()
-        # return color.upper()
-
         raise NotImplementedError("Implementar leitura do resultado")
 
     async def place_bet(self, value: int, color: str):
-        """
-        Executa a aposta no site
-        """
-        # EXEMPLO:
-        # await self.page.fill("#bet-input", str(value))
-        # await self.page.click(f".bet-{color.lower()}")
-        # await self.page.click("#confirm-bet")
-
         raise NotImplementedError("Implementar aposta")
 
     async def execute_signal(self, signal):

@@ -52,22 +52,16 @@ def add_signal(signal: dict):
     _save_data(data)
 
 def load_signals() -> list:
-    """Retorna os sinais do dia de hoje."""
     data = _load_data()
 
     today = str(date.today())
     return [s for s in data.get("signals", []) if s.get("date") == today]
 
 def update_signal_time(old_time: str, color: str, number: int, new_time: str) -> bool:
-    """
-    Atualiza o horário de um sinal se a cor e número forem iguais.
-    Retorna True se encontrou e atualizou, False caso contrário.
-    """
     data = _load_data()
     today = str(date.today())
     
     for signal in data.get("signals", []):
-        # Procura sinal com mesma cor, número e data
         if (signal.get("color") == color and 
             signal.get("number") == number and 
             signal.get("date") == today and
@@ -80,10 +74,6 @@ def update_signal_time(old_time: str, color: str, number: int, new_time: str) ->
     return False
 
 def remove_signal(time: str, color: str, number: int) -> bool:
-    """
-    Remove um sinal específico (por time, color, number).
-    Retorna True se encontrou e removeu, False caso contrário.
-    """
     data = _load_data()
     today = str(date.today())
     

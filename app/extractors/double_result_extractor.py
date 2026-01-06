@@ -1,7 +1,6 @@
 import asyncio
 from datetime import datetime
 
-
 class DoubleResultExtractor:
     def __init__(self, page):
         self.page = page

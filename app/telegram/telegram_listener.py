@@ -43,13 +43,11 @@ async def on_edited(event):
     new_signals = parse_signals(event.raw_text or "")
     stored = load_signals()
 
-    # Filtra apenas sinais que vieram desta mensagem específica
     old_signals_from_msg = [s for s in stored if s.get("message_id") == message_id]
     
     if not old_signals_from_msg:
         return
 
-    # Cria dicionário dos novos sinais por índice (posição na mensagem)
     new_by_index = {s["index"]: s for s in new_signals}
 
     for old in old_signals_from_msg:
@@ -58,7 +56,6 @@ async def on_edited(event):
         if old_index is not None and old_index in new_by_index:
             new = new_by_index[old_index]
             
-            # Se o sinal na mesma posição teve horário, cor ou número alterados
             if (old["time"] != new["time"] or 
                 old["color"] != new["color"] or 
                 old["number"] != new["number"]):
@@ -90,7 +87,6 @@ async def handler(event):
     print("────────────────────────────")
 
     for signal in signals:
-        # Adiciona o message_id para rastrear edições
         signal["message_id"] = message_id
         add_signal(signal)
 
