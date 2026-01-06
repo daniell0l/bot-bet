@@ -3,9 +3,9 @@ from datetime import datetime
 
 SIGNAL_REGEX = re.compile(
     r"(?P<time>\d{2}:\d{2})\s*"
-    r"entrar na\s*(?P<color>PRETA|VERMELHA).*?"
+    r"entrar\s+na\s*(?P<color>PRETA|VERMELHA).*?"
     r"\((?P<number>\d+)\)",
-    re.IGNORECASE
+    re.IGNORECASE | re.DOTALL
 )
 
 def parse_signals(text: str):

@@ -74,7 +74,7 @@ async def handler(event):
     signals = parse_signals(message)
 
     if not signals:
-        print("⚠️ Mensagem não contém sinais válidos")
+        print("⚠️  Mensagem não contém sinais válidos")
         return
 
     for signal in signals:
