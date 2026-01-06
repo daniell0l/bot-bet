@@ -1,0 +1,484 @@
+{
+  "signals": [
+    {
+      "time": "23:30",
+      "color": "VERMELHA",
+      "number": 6,
+      "raw": "23:30 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-04T23:09:06.062548",
+      "date": "2026-01-04"
+    },
+    {
+      "time": "23:45",
+      "color": "PRETA",
+      "number": 10,
+      "raw": "23:45 entrar na PRETA, vai cair número (10)",
+      "received_at": "2026-01-04T23:09:06.062548",
+      "date": "2026-01-04"
+    },
+    {
+      "time": "23:55",
+      "color": "PRETA",
+      "number": 12,
+      "raw": "23:55 entrar na PRETA, vai cair número (12)",
+      "received_at": "2026-01-04T23:09:06.062548",
+      "date": "2026-01-04"
+    },
+    {
+      "time": "00:30",
+      "color": "VERMELHA",
+      "number": 6,
+      "raw": "00:30 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-05T00:09:15.855042",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "00:45",
+      "color": "VERMELHA",
+      "number": 3,
+      "raw": "00:45 entrar na VERMELHA, vai cair número (3)",
+      "received_at": "2026-01-05T00:09:15.855042",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "01:03",
+      "color": "PRETA",
+      "number": 14,
+      "raw": "01:03 entrar na PRETA, vai cair número (14)",
+      "received_at": "2026-01-05T00:09:15.855042",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "01:30",
+      "color": "VERMELHA",
+      "number": 5,
+      "raw": "01:30 entrar na VERMELHA, vai cair número (5)",
+      "received_at": "2026-01-05T01:09:17.350772",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "01:45",
+      "color": "VERMELHA",
+      "number": 2,
+      "raw": "01:45 entrar na VERMELHA, vai cair número (2)",
+      "received_at": "2026-01-05T01:09:17.350772",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "02:05",
+      "color": "VERMELHA",
+      "number": 6,
+      "raw": "02:05 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-05T01:09:17.350772",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "02:31",
+      "color": "PRETA",
+      "number": 10,
+      "raw": "02:31 entrar na PRETA, vai cair número (10)",
+      "received_at": "2026-01-05T02:09:18.382198",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "02:45",
+      "color": "VERMELHA",
+      "number": 5,
+      "raw": "02:45 entrar na VERMELHA, vai cair número (5)",
+      "received_at": "2026-01-05T02:09:18.382198",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "03:00",
+      "color": "PRETA",
+      "number": 14,
+      "raw": "03:00 entrar na PRETA, vai cair número (14)",
+      "received_at": "2026-01-05T02:09:18.382198",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "03:30",
+      "color": "VERMELHA",
+      "number": 3,
+      "raw": "03:30 entrar na VERMELHA, vai cair número (3)",
+      "received_at": "2026-01-05T03:09:19.061638",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "03:43",
+      "color": "VERMELHA",
+      "number": 4,
+      "raw": "03:43 entrar na VERMELHA, vai cair número (4)",
+      "received_at": "2026-01-05T03:09:19.061638",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "04:00",
+      "color": "PRETA",
+      "number": 14,
+      "raw": "04:00 entrar na PRETA, vai cair número (14)",
+      "received_at": "2026-01-05T03:09:19.061638",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "04:34",
+      "color": "PRETA",
+      "number": 14,
+      "raw": "04:34 entrar na PRETA, vai cair número (14)",
+      "received_at": "2026-01-05T04:09:19.979999",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "04:49",
+      "color": "PRETA",
+      "number": 8,
+      "raw": "04:49 entrar na PRETA, vai cair número (8)",
+      "received_at": "2026-01-05T04:09:19.979999",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "05:00",
+      "color": "PRETA",
+      "number": 12,
+      "raw": "05:00 entrar na PRETA, vai cair número (12)",
+      "received_at": "2026-01-05T04:09:19.979999",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "05:35",
+      "color": "VERMELHA",
+      "number": 3,
+      "raw": "05:35 entrar na VERMELHA, vai cair número (3)",
+      "received_at": "2026-01-05T05:09:21.104910",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "05:45",
+      "color": "VERMELHA",
+      "number": 5,
+      "raw": "05:45 entrar na VERMELHA, vai cair número (5)",
+      "received_at": "2026-01-05T05:09:21.104910",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "06:02",
+      "color": "VERMELHA",
+      "number": 7,
+      "raw": "06:02 entrar na VERMELHA, vai cair número (7)",
+      "received_at": "2026-01-05T05:09:21.104910",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "06:30",
+      "color": "VERMELHA",
+      "number": 7,
+      "raw": "06:30 entrar na VERMELHA, vai cair número (7)",
+      "received_at": "2026-01-05T06:09:21.992383",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "06:45",
+      "color": "PRETA",
+      "number": 9,
+      "raw": "06:45 entrar na PRETA, vai cair número (9)",
+      "received_at": "2026-01-05T06:09:21.992383",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "07:02",
+      "color": "VERMELHA",
+      "number": 5,
+      "raw": "07:02 entrar na VERMELHA, vai cair número (5)",
+      "received_at": "2026-01-05T06:09:21.992383",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "07:30",
+      "color": "PRETA",
+      "number": 12,
+      "raw": "07:30 entrar na PRETA, vai cair número (12)",
+      "received_at": "2026-01-05T07:09:17.525847",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "07:45",
+      "color": "PRETA",
+      "number": 9,
+      "raw": "07:45 entrar na PRETA, vai cair número (9)",
+      "received_at": "2026-01-05T07:09:17.525847",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "08:05",
+      "color": "VERMELHA",
+      "number": 6,
+      "raw": "08:05 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-05T07:09:17.525847",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "08:30",
+      "color": "PRETA",
+      "number": 8,
+      "raw": "08:30 entrar na PRETA, vai cair número (8)",
+      "received_at": "2026-01-05T08:09:15.686359",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "08:45",
+      "color": "VERMELHA",
+      "number": 6,
+      "raw": "08:45 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-05T08:09:15.686359",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "09:00",
+      "color": "VERMELHA",
+      "number": 3,
+      "raw": "09:00 entrar na VERMELHA, vai cair número (3)",
+      "received_at": "2026-01-05T08:09:15.686359",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "09:30",
+      "color": "VERMELHA",
+      "number": 5,
+      "raw": "09:30 entrar na VERMELHA, vai cair número (5)",
+      "received_at": "2026-01-05T09:09:32.796101",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "09:45",
+      "color": "VERMELHA",
+      "number": 4,
+      "raw": "09:45 entrar na VERMELHA, vai cair número (4)",
+      "received_at": "2026-01-05T09:09:32.796101",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "10:00",
+      "color": "VERMELHA",
+      "number": 2,
+      "raw": "10:00 entrar na VERMELHA, vai cair número (2)",
+      "received_at": "2026-01-05T09:09:32.796101",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "10:33",
+      "color": "PRETA",
+      "number": 9,
+      "raw": "10:33 entrar na PRETA, vai cair número (9)",
+      "received_at": "2026-01-05T10:09:08.992089",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "10:45",
+      "color": "VERMELHA",
+      "number": 7,
+      "raw": "10:45 entrar na VERMELHA, vai cair número (7)",
+      "received_at": "2026-01-05T10:09:08.992089",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "11:00",
+      "color": "PRETA",
+      "number": 9,
+      "raw": "11:00 entrar na PRETA, vai cair número (9)",
+      "received_at": "2026-01-05T10:09:08.992089",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "11:30",
+      "color": "PRETA",
+      "number": 12,
+      "raw": "11:30 entrar na PRETA, vai cair número (12)",
+      "received_at": "2026-01-05T11:09:10.200469",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "11:47",
+      "color": "VERMELHA",
+      "number": 4,
+      "raw": "11:47 entrar na VERMELHA, vai cair número (4)",
+      "received_at": "2026-01-05T11:09:10.200469",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "12:04",
+      "color": "VERMELHA",
+      "number": 6,
+      "raw": "12:04 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-05T11:09:10.200469",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "12:30",
+      "color": "PRETA",
+      "number": 8,
+      "raw": "12:30 entrar na PRETA, vai cair número (8)",
+      "received_at": "2026-01-05T12:09:14.685474",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "12:45",
+      "color": "PRETA",
+      "number": 8,
+      "raw": "12:45 entrar na PRETA, vai cair número (8)",
+      "received_at": "2026-01-05T12:09:14.685474",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "13:00",
+      "color": "VERMELHA",
+      "number": 2,
+      "raw": "13:00 entrar na VERMELHA, vai cair número (2)",
+      "received_at": "2026-01-05T12:09:14.685474",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "13:30",
+      "color": "PRETA",
+      "number": 9,
+      "raw": "13:30 entrar na PRETA, vai cair número (9)",
+      "received_at": "2026-01-05T13:09:06.307196",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "13:45",
+      "color": "VERMELHA",
+      "number": 6,
+      "raw": "13:45 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-05T13:09:06.307196",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "14:00",
+      "color": "VERMELHA",
+      "number": 5,
+      "raw": "14:00 entrar na VERMELHA, vai cair número (5)",
+      "received_at": "2026-01-05T13:09:06.307196",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "14:35",
+      "color": "PRETA",
+      "number": 14,
+      "raw": "14:35 entrar na PRETA, vai cair número (14)",
+      "received_at": "2026-01-05T14:09:00.661670",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "14:45",
+      "color": "VERMELHA",
+      "number": 4,
+      "raw": "14:45 entrar na VERMELHA, vai cair número (4)",
+      "received_at": "2026-01-05T14:09:00.661670",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "15:00",
+      "color": "VERMELHA",
+      "number": 1,
+      "raw": "15:00 entrar na VERMELHA, vai cair número (1)",
+      "received_at": "2026-01-05T14:09:00.661670",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "15:30",
+      "color": "PRETA",
+      "number": 10,
+      "raw": "15:30 entrar na PRETA, vai cair número (10)",
+      "received_at": "2026-01-05T15:09:07.807363",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "15:48",
+      "color": "PRETA",
+      "number": 8,
+      "raw": "15:48 entrar na PRETA, vai cair número (8)",
+      "received_at": "2026-01-05T15:09:07.807363",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "16:00",
+      "color": "VERMELHA",
+      "number": 4,
+      "raw": "16:00 entrar na VERMELHA, vai cair número (4)",
+      "received_at": "2026-01-05T15:09:07.807363",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "16:30",
+      "color": "PRETA",
+      "number": 10,
+      "raw": "16:30 entrar na PRETA, vai cair número (10)",
+      "received_at": "2026-01-05T16:09:02.211559",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "16:50",
+      "color": "VERMELHA",
+      "number": 6,
+      "raw": "16:50 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-05T16:09:02.211559",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "17:00",
+      "color": "VERMELHA",
+      "number": 2,
+      "raw": "17:00 entrar na VERMELHA, vai cair número (2)",
+      "received_at": "2026-01-05T16:09:02.211559",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "17:30",
+      "color": "VERMELHA",
+      "number": 5,
+      "raw": "17:30 entrar na VERMELHA, vai cair número (5)",
+      "received_at": "2026-01-05T17:09:23.667570",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "17:45",
+      "color": "PRETA",
+      "number": 14,
+      "raw": "17:45 entrar na PRETA, vai cair número (14)",
+      "received_at": "2026-01-05T17:09:23.667570",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "18:00",
+      "color": "PRETA",
+      "number": 11,
+      "raw": "18:00 entrar na PRETA, vai cair número (11)",
+      "received_at": "2026-01-05T17:09:23.667570",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "18:34",
+      "color": "PRETA",
+      "number": 9,
+      "raw": "18:34 entrar na PRETA, vai cair número (9)",
+      "received_at": "2026-01-05T18:09:03.673746",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "18:45",
+      "color": "VERMELHA",
+      "number": 2,
+      "raw": "18:45 entrar na VERMELHA, vai cair número (2)",
+      "received_at": "2026-01-05T18:09:03.673746",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "19:00",
+      "color": "VERMELHA",
+      "number": 4,
+      "raw": "19:00 entrar na VERMELHA, vai cair número (4)",
+      "received_at": "2026-01-05T18:09:03.673746",
+      "date": "2026-01-05"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "python.analysis.extraPaths": [
+        "./data"
+    ]
+    ,
+    "python.defaultInterpreterPath": "C:\\Users\\danie\\Documents\\telegram-bet-bot\\venv\\Scripts\\python.exe"
+}
