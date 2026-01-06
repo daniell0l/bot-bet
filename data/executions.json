@@ -646,5 +646,11 @@
     "finished_at": "2026-01-05T19:00:06.593502",
     "executor": "playwright_simulator",
     "saved_at": "2026-01-05T19:00:06.602559"
+  },
+  {
+    "signal_id": "221c8459",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-05T22:30:49.680158"
   }
 ]

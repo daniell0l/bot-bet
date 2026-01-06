@@ -137,14 +137,6 @@
       "date": "2026-01-05"
     },
     {
-      "time": "05:00",
-      "color": "PRETA",
-      "number": 12,
-      "raw": "05:00 entrar na PRETA, vai cair número (12)",
-      "received_at": "2026-01-05T04:09:19.979999",
-      "date": "2026-01-05"
-    },
-    {
       "time": "05:35",
       "color": "VERMELHA",
       "number": 3,
@@ -177,35 +169,11 @@
       "date": "2026-01-05"
     },
     {
-      "time": "06:45",
-      "color": "PRETA",
-      "number": 9,
-      "raw": "06:45 entrar na PRETA, vai cair número (9)",
-      "received_at": "2026-01-05T06:09:21.992383",
-      "date": "2026-01-05"
-    },
-    {
       "time": "07:02",
       "color": "VERMELHA",
       "number": 5,
       "raw": "07:02 entrar na VERMELHA, vai cair número (5)",
       "received_at": "2026-01-05T06:09:21.992383",
-      "date": "2026-01-05"
-    },
-    {
-      "time": "07:30",
-      "color": "PRETA",
-      "number": 12,
-      "raw": "07:30 entrar na PRETA, vai cair número (12)",
-      "received_at": "2026-01-05T07:09:17.525847",
-      "date": "2026-01-05"
-    },
-    {
-      "time": "07:45",
-      "color": "PRETA",
-      "number": 9,
-      "raw": "07:45 entrar na PRETA, vai cair número (9)",
-      "received_at": "2026-01-05T07:09:17.525847",
       "date": "2026-01-05"
     },
     {
@@ -265,35 +233,11 @@
       "date": "2026-01-05"
     },
     {
-      "time": "10:33",
-      "color": "PRETA",
-      "number": 9,
-      "raw": "10:33 entrar na PRETA, vai cair número (9)",
-      "received_at": "2026-01-05T10:09:08.992089",
-      "date": "2026-01-05"
-    },
-    {
       "time": "10:45",
       "color": "VERMELHA",
       "number": 7,
       "raw": "10:45 entrar na VERMELHA, vai cair número (7)",
       "received_at": "2026-01-05T10:09:08.992089",
-      "date": "2026-01-05"
-    },
-    {
-      "time": "11:00",
-      "color": "PRETA",
-      "number": 9,
-      "raw": "11:00 entrar na PRETA, vai cair número (9)",
-      "received_at": "2026-01-05T10:09:08.992089",
-      "date": "2026-01-05"
-    },
-    {
-      "time": "11:30",
-      "color": "PRETA",
-      "number": 12,
-      "raw": "11:30 entrar na PRETA, vai cair número (12)",
-      "received_at": "2026-01-05T11:09:10.200469",
       "date": "2026-01-05"
     },
     {
@@ -337,14 +281,6 @@
       "date": "2026-01-05"
     },
     {
-      "time": "13:30",
-      "color": "PRETA",
-      "number": 9,
-      "raw": "13:30 entrar na PRETA, vai cair número (9)",
-      "received_at": "2026-01-05T13:09:06.307196",
-      "date": "2026-01-05"
-    },
-    {
       "time": "13:45",
       "color": "VERMELHA",
       "number": 6,
@@ -373,14 +309,6 @@
       "color": "VERMELHA",
       "number": 4,
       "raw": "14:45 entrar na VERMELHA, vai cair número (4)",
-      "received_at": "2026-01-05T14:09:00.661670",
-      "date": "2026-01-05"
-    },
-    {
-      "time": "15:00",
-      "color": "VERMELHA",
-      "number": 1,
-      "raw": "15:00 entrar na VERMELHA, vai cair número (1)",
       "received_at": "2026-01-05T14:09:00.661670",
       "date": "2026-01-05"
     },
@@ -457,14 +385,6 @@
       "date": "2026-01-05"
     },
     {
-      "time": "18:34",
-      "color": "PRETA",
-      "number": 9,
-      "raw": "18:34 entrar na PRETA, vai cair número (9)",
-      "received_at": "2026-01-05T18:09:03.673746",
-      "date": "2026-01-05"
-    },
-    {
       "time": "18:45",
       "color": "VERMELHA",
       "number": 2,
@@ -478,6 +398,30 @@
       "number": 4,
       "raw": "19:00 entrar na VERMELHA, vai cair número (4)",
       "received_at": "2026-01-05T18:09:03.673746",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "22:30",
+      "color": "PRETA",
+      "number": 12,
+      "raw": "22:30 entrar na PRETA, vai cair número (12)",
+      "received_at": "2026-01-05T22:09:09.601296",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "22:48",
+      "color": "PRETA",
+      "number": 9,
+      "raw": "22:48 entrar na PRETA, vai cair número (9)",
+      "received_at": "2026-01-05T22:09:09.601296",
+      "date": "2026-01-05"
+    },
+    {
+      "time": "23:00",
+      "color": "VERMELHA",
+      "number": 1,
+      "raw": "23:00 entrar na VERMELHA, vai cair número (1)",
+      "received_at": "2026-01-05T22:09:09.601296",
       "date": "2026-01-05"
     }
   ]

@@ -39,23 +39,37 @@ async def on_edited(event):
     if not _is_target_chat(chat):
         return
 
+    message_id = event.message.id
     new_signals = parse_signals(event.raw_text or "")
     stored = load_signals()
 
-    for old in stored:
-        for new in new_signals:
-            if (
-                old["color"] == new["color"]
-                and old["number"] == new["number"]
-                and old["time"] != new["time"]
-            ):
+    # Filtra apenas sinais que vieram desta mensagem específica
+    old_signals_from_msg = [s for s in stored if s.get("message_id") == message_id]
+    
+    if not old_signals_from_msg:
+        return
+
+    # Cria dicionário dos novos sinais por índice (posição na mensagem)
+    new_by_index = {s["index"]: s for s in new_signals}
+
+    for old in old_signals_from_msg:
+        old_index = old.get("index")
+        
+        if old_index is not None and old_index in new_by_index:
+            new = new_by_index[old_index]
+            
+            # Se o sinal na mesma posição teve horário, cor ou número alterados
+            if (old["time"] != new["time"] or 
+                old["color"] != new["color"] or 
+                old["number"] != new["number"]):
+                
                 removed = remove_signal(old["time"], old["color"], old["number"])
                 if removed:
                     cancel_scheduled_signal(old)
 
                     _safe_print(
                         f"✏️ SINAL EDITADO → ENTRADA CANCELADA | "
-                        f"{old['time']} → {new['time']} | {old['color']} ({old['number']})"
+                        f"{old['time']} {old['color']} ({old['number']}) → {new['time']} {new['color']} ({new['number']})"
                     )
 
 
@@ -66,18 +80,18 @@ async def handler(event):
         return
 
     message = event.raw_text or ""
-
-    print(f"\n📩 NOVA MENSAGEM DETECTADA ({chat.title})")
-    print(message)
-    print("────────────────────────────")
-
+    message_id = event.message.id
     signals = parse_signals(message)
 
     if not signals:
-        print("⚠️  Mensagem não contém sinais válidos")
         return
 
+    print(f"\n📩 NOVA MENSAGEM DETECTADA ({chat.title})")
+    print("────────────────────────────")
+
     for signal in signals:
+        # Adiciona o message_id para rastrear edições
+        signal["message_id"] = message_id
         add_signal(signal)
 
         print("✅ SINAL SALVO")

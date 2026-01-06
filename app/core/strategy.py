@@ -28,9 +28,9 @@ class MartingaleStrategy:
         bet = self.base_bet
 
         for i in range(1, self.max_losses + 1):
-            print(f"\n💰 Entrada {i} → {bet} {signal['color']}")
+            print(f"\n💰 Entrada {i}º → {bet}=R$ {signal['color']}")
             r = (await get_result())["valid"]
-            print(f"🎲 Resultado: {r['color']}")
+            print(f"🎲 Resultado: {r['color']} - Nº {r['number']}")
 
             if r["color"] == signal["color"]:
                 print("\n🎉 WIN")
