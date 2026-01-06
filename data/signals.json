@@ -423,6 +423,86 @@
       "raw": "23:00 entrar na VERMELHA, vai cair número (1)",
       "received_at": "2026-01-05T22:09:09.601296",
       "date": "2026-01-05"
+    },
+    {
+      "time": "23:30",
+      "color": "VERMELHA",
+      "number": 6,
+      "index": 0,
+      "raw": "23:30 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-05T23:09:30.352924",
+      "message_id": 54789,
+      "date": "2026-01-05"
+    },
+    {
+      "time": "23:45",
+      "color": "PRETA",
+      "number": 10,
+      "index": 1,
+      "raw": "23:45 entrar na PRETA, vai cair número (10)",
+      "received_at": "2026-01-05T23:09:30.352924",
+      "message_id": 54789,
+      "date": "2026-01-05"
+    },
+    {
+      "time": "23:55",
+      "color": "PRETA",
+      "number": 12,
+      "index": 2,
+      "raw": "23:55 entrar na PRETA, vai cair número (12)",
+      "received_at": "2026-01-05T23:09:30.352924",
+      "message_id": 54789,
+      "date": "2026-01-05"
+    },
+    {
+      "time": "00:30",
+      "color": "VERMELHA",
+      "number": 6,
+      "index": 0,
+      "raw": "00:30 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-06T00:09:30.942821",
+      "message_id": 54793,
+      "date": "2026-01-06"
+    },
+    {
+      "time": "00:45",
+      "color": "VERMELHA",
+      "number": 3,
+      "index": 1,
+      "raw": "00:45 entrar na VERMELHA, vai cair número (3)",
+      "received_at": "2026-01-06T00:09:30.942821",
+      "message_id": 54793,
+      "date": "2026-01-06"
+    },
+    {
+      "time": "01:03",
+      "color": "PRETA",
+      "number": 14,
+      "index": 2,
+      "raw": "01:03 entrar na PRETA, vai cair número (14)",
+      "received_at": "2026-01-06T00:09:30.942821",
+      "message_id": 54793,
+      "date": "2026-01-06"
+    },
+    {
+      "time": "01:45",
+      "color": "VERMELHA",
+      "number": 2,
+      "index": 1,
+      "raw": "01:45 entrar na VERMELHA, vai cair número (2)",
+      "received_at": "2026-01-06T01:09:08.900212",
+      "message_id": 54797,
+      "date": "2026-01-06"
+    },
+    {
+      "time": "02:05",
+      "color": "VERMELHA",
+      "number": 6,
+      "index": 2,
+      "raw": "02:05 entrar na VERMELHA, vai cair número (6)",
+      "received_at": "2026-01-06T01:09:08.900212",
+      "message_id": 54797,
+      "date": "2026-01-06"
     }
   ]
 }

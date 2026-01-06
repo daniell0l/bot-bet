@@ -1,13 +1,11 @@
 import asyncio
-from datetime import datetime
+from datetime import datetime, timedelta
 from app.executors.executor_playwright_simulator import PlaywrightSimulatorExecutor
 
 scheduled_tasks: dict[tuple, asyncio.Task] = {}
 
-
 def build_key(signal: dict) -> tuple:
     return (signal["time"], signal["color"], signal["number"])
-
 
 def cancel_scheduled_signal(signal: dict):
     key = build_key(signal)
@@ -15,7 +13,6 @@ def cancel_scheduled_signal(signal: dict):
 
     if task and not task.done():
         task.cancel()
-
 
 async def schedule_signal(signal: dict, executor):
     key = build_key(signal)
@@ -26,7 +23,7 @@ async def schedule_signal(signal: dict, executor):
     )
 
     if signal_time <= now:
-        return
+        signal_time += timedelta(days=1)
 
     try:
         await asyncio.sleep((signal_time - now).total_seconds())
@@ -35,7 +32,6 @@ async def schedule_signal(signal: dict, executor):
         pass
     finally:
         scheduled_tasks.pop(key, None)
-
 
 async def start_scheduler(page):
     from app.shared.signal_queue import signal_queue
