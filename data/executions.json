@@ -46,5 +46,17 @@
     "status": "loss",
     "attempts": 3,
     "saved_at": "2026-01-06T01:31:08.412844"
+  },
+  {
+    "signal_id": "f7f1d735",
+    "status": "win",
+    "attempts": 3,
+    "saved_at": "2026-01-06T01:46:05.895786"
+  },
+  {
+    "signal_id": "ba0d4608",
+    "status": "win",
+    "attempts": 1,
+    "saved_at": "2026-01-06T02:05:23.671812"
   }
 ]
