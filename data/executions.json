@@ -58,5 +58,239 @@
     "status": "win",
     "attempts": 1,
     "saved_at": "2026-01-06T02:05:23.671812"
+  },
+  {
+    "signal_id": "297d7b41",
+    "status": "win",
+    "attempts": 1,
+    "saved_at": "2026-01-06T02:31:37.168346"
+  },
+  {
+    "signal_id": "85d0b8b7",
+    "status": "win",
+    "attempts": 3,
+    "saved_at": "2026-01-06T02:46:00.667578"
+  },
+  {
+    "signal_id": "83e28652",
+    "status": "win",
+    "attempts": 3,
+    "saved_at": "2026-01-06T03:00:57.809478"
+  },
+  {
+    "signal_id": "4b079cad",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T03:30:03.698651"
+  },
+  {
+    "signal_id": "c96c3d90",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-06T03:43:35.178194"
+  },
+  {
+    "signal_id": "5481fe62",
+    "status": "win",
+    "attempts": 1,
+    "saved_at": "2026-01-06T04:00:45.345783"
+  },
+  {
+    "signal_id": "b7b0e50a",
+    "status": "loss",
+    "attempts": 3,
+    "saved_at": "2026-01-06T04:34:53.339345"
+  },
+  {
+    "signal_id": "45004d09",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-06T04:49:49.012748"
+  },
+  {
+    "signal_id": "9d426f4d",
+    "status": "loss",
+    "attempts": 3,
+    "saved_at": "2026-01-06T05:01:03.558466"
+  },
+  {
+    "signal_id": "20511b73",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T05:35:29.089655"
+  },
+  {
+    "signal_id": "ba3b1cd7",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T05:45:06.772167"
+  },
+  {
+    "signal_id": "77e3a3c9",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T06:02:04.837377"
+  },
+  {
+    "signal_id": "5df6f2e2",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T06:30:06.987758"
+  },
+  {
+    "signal_id": "1b5e2a3b",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T06:45:03.748653"
+  },
+  {
+    "signal_id": "d7fabfa5",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T07:02:01.780745"
+  },
+  {
+    "signal_id": "f16d498d",
+    "status": "win",
+    "attempts": 1,
+    "saved_at": "2026-01-06T07:30:29.017135"
+  },
+  {
+    "signal_id": "4bee90b3",
+    "status": "win",
+    "attempts": 3,
+    "saved_at": "2026-01-06T07:46:00.190739"
+  },
+  {
+    "signal_id": "e9fe7472",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-06T08:05:41.526794"
+  },
+  {
+    "signal_id": "6be8792f",
+    "status": "win",
+    "attempts": 1,
+    "saved_at": "2026-01-06T08:30:33.256908"
+  },
+  {
+    "signal_id": "3aa47fcc",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-06T09:03:15.349410"
+  },
+  {
+    "signal_id": "1f114ae9",
+    "status": "win",
+    "attempts": 3,
+    "saved_at": "2026-01-06T09:31:08.176371"
+  },
+  {
+    "signal_id": "6539f227",
+    "status": "win",
+    "attempts": 1,
+    "saved_at": "2026-01-06T09:45:28.454939"
+  },
+  {
+    "signal_id": "f8e433f1",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T10:00:03.038452"
+  },
+  {
+    "signal_id": "99a5f1d5",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-06T10:33:52.070875"
+  },
+  {
+    "signal_id": "147dc5f1",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T10:45:09.109176"
+  },
+  {
+    "signal_id": "0267ffdd",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T11:00:00.268687"
+  },
+  {
+    "signal_id": "bda242cb",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-06T11:30:38.333228"
+  },
+  {
+    "signal_id": "415d81ac",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-06T11:48:00.552018"
+  },
+  {
+    "signal_id": "4e150e97",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-06T12:05:00.357634"
+  },
+  {
+    "signal_id": "89100afc",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-06T12:30:04.810422"
+  },
+  {
+    "signal_id": "848d6c87",
+    "status": "loss",
+    "attempts": 3,
+    "saved_at": "2026-01-06T12:46:06.832697"
+  },
+  {
+    "signal_id": "61a39726",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-06T13:31:07.445440"
+  },
+  {
+    "signal_id": "6c5663e0",
+    "status": "win",
+    "attempts": 3,
+    "saved_at": "2026-01-07T13:31:03.917175"
+  },
+  {
+    "signal_id": "14de1aa7",
+    "status": "win",
+    "attempts": 1,
+    "saved_at": "2026-01-07T13:45:25.842555"
+  },
+  {
+    "signal_id": "51aaba31",
+    "status": "cancelled",
+    "attempts": 0,
+    "saved_at": "2026-01-07T14:00:03.957200"
+  },
+  {
+    "signal_id": "3214be7a",
+    "status": "win",
+    "attempts": 1,
+    "saved_at": "2026-01-07T14:35:33.195246"
+  },
+  {
+    "signal_id": "161eeb34",
+    "status": "win",
+    "attempts": 1,
+    "saved_at": "2026-01-07T14:45:21.805092"
+  },
+  {
+    "signal_id": "72ce26b1",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-07T15:00:53.386069"
+  },
+  {
+    "signal_id": "00a874b2",
+    "status": "win",
+    "attempts": 2,
+    "saved_at": "2026-01-07T15:31:02.714551"
   }
 ]

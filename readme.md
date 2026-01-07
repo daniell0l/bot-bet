@@ -187,6 +187,7 @@ Após isso, a sessão é salva e não pedirá novamente.
 telegram-bet-bot/
 │
 ├── main.py                 # Ponto de entrada
+├── report.py               # Gerador de relatórios
 ├── .env                    # Variáveis de ambiente
 ├── requirements.txt        # Dependências
 ├── readme.md
@@ -213,6 +214,9 @@ telegram-bet-bot/
     │
     ├── extractors/         # Extração de resultados
     │   └── double_result_extractor.py
+    │
+    ├── reports/            # Relatórios
+    │   └── daily_report.py # Relatório diário de lucro/prejuízo
     │
     ├── shared/             # Recursos compartilhados
     │   └── signal_queue.py
@@ -252,6 +256,88 @@ DATA_RETENTION_DAYS=7 python main.py
 
 ---
 
+## 📊 Relatórios
+
+O bot inclui um sistema completo de relatórios para acompanhar seus resultados.
+
+### Comandos Disponíveis
+
+```powershell
+# Relatório de hoje
+python report.py
+
+# Resumo de todos os dias
+python report.py all
+
+# Relatório de uma data específica
+python report.py YYYY-MM-DD
+```
+
+### Exemplo de Relatório Diário
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 RELATÓRIO DIÁRIO - 2026-01-07
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 RESUMO GERAL
+   Total de sinais: 7
+   ✅ WIN: 6
+   ❌ LOSS: 0
+   ⏭️  CANCELADOS: 1
+
+🎯 TAXA DE ACERTO
+   Apostas realizadas: 6
+   Taxa de acerto: 100.0%
+
+🎲 WINS POR TENTATIVA
+   🥇 1ª entrada: 3
+   🥈 2ª entrada: 2
+   🥉 3ª entrada: 1
+
+💰 RESULTADO FINANCEIRO
+   🟢 LUCRO: +R$ 30.00
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Exemplo de Resumo Geral
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 RESUMO GERAL - TODOS OS DIAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📅 2026-01-05 | 🟢 +R$ 25.00
+   WIN: 5 | LOSS: 0 | CANCEL: 1 | Taxa: 100.0%
+
+📅 2026-01-06 | 🔴 -R$ 35.00
+   WIN: 21 | LOSS: 4 | CANCEL: 11 | Taxa: 84.0%
+
+📅 2026-01-07 | 🟢 +R$ 30.00
+   WIN: 6 | LOSS: 0 | CANCEL: 1 | Taxa: 100.0%
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 TOTAL ACUMULADO
+   Sinais: 49 | Apostas: 36
+   WIN: 32 | LOSS: 4 | CANCEL: 13
+   Taxa de acerto: 88.9%
+   🟢 LUCRO TOTAL: +R$ 20.00
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Cálculo de Lucro/Prejuízo
+
+O relatório calcula automaticamente baseado na estratégia Martingale:
+
+| Resultado | Valor |
+|-----------|-------|
+| WIN (1ª, 2ª ou 3ª entrada) | +R$ 5,00 |
+| LOSS (stop loss) | -R$ 35,00 |
+| CANCELLED | R$ 0,00 |
+
+---
+
 ## 📝 Formato de Sinais Suportados
 
 O bot reconhece mensagens no formato: 
@@ -275,4 +361,5 @@ Este bot é apenas para fins educacionais. O uso de bots para apostas pode viola
 ## 📄 Licença
 
 MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
 
