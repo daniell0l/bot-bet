@@ -24,8 +24,10 @@ Bot automatizado para receber sinais de apostas via Telegram e executar apostas 
 - ✅ Agenda apostas para o horário exato do sinal
 - ✅ Executa apostas usando estratégia Martingale
 - ✅ Suporta sinais após meia-noite (dia seguinte)
-- ✅ Armazena histórico de sinais e execuções
-- ✅ Limpeza automática de dados antigos
+- ✅ **Gestão de Banca** com meta diária de 5%
+- ✅ **Janelas de Operação Alternadas** (manhã/noite)
+- ✅ Armazena histórico permanente em **SQLite**
+- ✅ Relatórios diários, mensais e análise de horários
 
 ---
 
@@ -36,23 +38,80 @@ Bot automatizado para receber sinais de apostas via Telegram e executar apostas 
          
 🔍 Parser extrai os sinais (horário, cor, número)
          
-💾 Sinais salvos no JSON + Agendados
+💾 Sinais salvos no SQLite + Agendados
+         
+🕐 Verifica janela de operação (manhã/noite)
+         
+💰 Verifica se meta diária foi atingida
          
 ⏰ Na hora certa → Aposta executada
          
-📊 Resultado salvo (WIN/LOSS/CANCELLED)
+📊 Resultado salvo + Banca atualizada
 ```
 
 ### Estratégia Martingale
 
-| Entrada | Valor |
-|---------|-------|
-| 1ª | R$ 5 |
-| 2ª | R$ 10 |
-| 3ª | R$ 20 |
+| Entrada | Valor | Risco Acumulado |
+|---------|-------|----------------|
+| 1ª | 1% da banca | 1% |
+| 2ª | 2% da banca | 3% |
+| 3ª | 4% da banca | 7% |
 
-- **WIN**: Para ao acertar a cor
-- **STOP LOSS**: Para após 3 tentativas
+- **WIN**: Para ao acertar a cor (lucro = 1% )
+- **STOP LOSS**: Para após 3 tentativas (perda = 7%)
+
+---
+
+## 💰 Gestão de Banca
+
+O bot possui um sistema inteligente de gestão de banca:
+
+| Configuração | Valor Padrão | Descrição |
+|--------------|--------------|------------|
+| `BANK_INITIAL` | R$ 1000 | Banca inicial |
+| `BANK_DAILY_GOAL_PERCENT` | 5% | Meta diária de lucro |
+| `BANK_BET_PERCENT` | 1% | Valor da aposta base |
+
+### Como funciona:
+
+1. **Aposta base**: 1% da banca atual
+2. **Meta diária**: 5% da banca atual
+3. **Ao atingir a meta**: Bot para de operar até o dia seguinte
+4. **Martingale**: 1% → 2% → 4% (máximo 7% de risco)
+
+### Exemplo prático:
+
+```
+Banca: R$ 1000,00
+Aposta base: R$ 10,00 (1%)
+Meta do dia: R$ 50,00 (5%)
+
+Após 4 wins: Lucro = R$ 50,00 ✅
+→ Meta atingida! Bot pausa até amanhã.
+```
+
+---
+
+## 🕐 Janelas de Operação
+
+Baseado em análise de dados, o bot opera apenas nos melhores horários:
+
+| Dia | Tipo | Janela | Taxa Histórica |
+|-----|------|--------|----------------|
+| Ímpares (1, 3, 5...) | Manhã | 07:00 - 11:00 | 100% |
+| Pares (2, 4, 6...) | Noite | 20:00 - 23:00 | 100% |
+
+### Por que alternar?
+
+- Evita overtrading
+- Opera apenas em horários com melhor performance
+- Reduz exposição ao risco
+
+### Verificar janela atual:
+
+```bash
+python report.py window
+```
 
 ---
 
@@ -76,11 +135,11 @@ cd bot-bet
 ### 2. Crie e ative o ambiente virtual
 
 ```bash
-# Windows
+Windows:
 python -m venv venv
 venv\Scripts\activate
 
-# Linux/Mac
+Linux/Mac:
 python -m venv venv
 source venv/bin/activate
 ```
@@ -104,10 +163,16 @@ playwright install chromium
 ### 1. Crie o arquivo `.env`
 
 ```env
+# Telegram
 API_ID=seu_api_id
 API_HASH=seu_api_hash
 SESSION_NAME=bet_session
 SIGNAL_CHAT_TITLES=Nome do Grupo de Sinais
+
+# Gestão de Banca
+BANK_INITIAL=1000
+BANK_DAILY_GOAL_PERCENT=50
+BANK_BET_PERCENT=10
 ```
 
 ### 2. Obtenha suas credenciais do Telegram
@@ -169,10 +234,10 @@ Após isso, a sessão é salva e não pedirá novamente.
 ⏭️ Rodada descartada: 7 | VERMELHA
 🎲 Observação válida: 1 | VERMELHA
 
-💰 Entrada 1º → 5=R$ PRETA
+💰 Entrada 1º → 10=R$ PRETA
 🎲 Resultado: VERMELHA - Nº 3
 
-💰 Entrada 2º → 10=R$ PRETA
+💰 Entrada 2º → 20=R$ PRETA
 🎲 Resultado: PRETA - Nº 12
 
 🎉 WIN
@@ -186,42 +251,44 @@ Após isso, a sessão é salva e não pedirá novamente.
 ```
 telegram-bet-bot/
 │
-├── main.py                 # Ponto de entrada
-├── report.py               # Gerador de relatórios
-├── .env                    # Variáveis de ambiente
-├── requirements.txt        # Dependências
+├── main.py
+├── report.py
+├── migrate_to_sqlite.py
+├── .env
+├── requirements.txt
 ├── readme.md
 │
-├── data/                   # Dados persistidos
-│   ├── signals.json        # Sinais recebidos
-│   └── executions.json     # Histórico de execuções
+├── data/
+│   └── bot.db
 │
 └── app/
-    ├── core/               # Regras de negócio
-    │   └── strategy.py     # Estratégia Martingale
+    ├── core/ 
+    │   ├── strategy.py 
+    │   └── bank_manager.py
     │
-    ├── telegram/           # Integração Telegram
+    ├── telegram/ 
     │   ├── telegram_listener.py
     │   └── signal_parser.py
     │
-    ├── scheduler/          # Agendamento
+    ├── scheduler/ 
     │   └── scheduler.py
     │
-    ├── executors/          # Execução de apostas
+    ├── executors/
     │   ├── executor_fake.py
     │   ├── executor_playwright.py
     │   └── executor_playwright_simulator.py
     │
-    ├── extractors/         # Extração de resultados
+    ├── extractors/
     │   └── double_result_extractor.py
     │
-    ├── reports/            # Relatórios
-    │   └── daily_report.py # Relatório diário de lucro/prejuízo
+    ├── reports/
+    │   └── daily_report.py
     │
-    ├── shared/             # Recursos compartilhados
+    ├── shared/
     │   └── signal_queue.py
     │
-    └── storage/            # Persistência de dados
+    └── storage/
+        ├── database.py
         ├── signal_store.py
         └── execution_store.py
 ```
@@ -230,6 +297,8 @@ telegram-bet-bot/
 
 ## 🔧 Variáveis de Ambiente
 
+### Telegram
+
 | Variável | Descrição | Padrão |
 |----------|-----------|--------|
 | `API_ID` | ID da API do Telegram | *obrigatório* |
@@ -237,22 +306,20 @@ telegram-bet-bot/
 | `SESSION_NAME` | Nome do arquivo de sessão | `bet_session` |
 | `SIGNAL_CHAT_TITLES` | Nome(s) do grupo de sinais | - |
 | `SIGNAL_CHAT_IDS` | ID(s) do grupo de sinais | - |
-| `DATA_DIR` | Diretório dos dados | `data` |
-| `DATA_RETENTION_DAYS` | Dias para manter histórico | `3` |
 
-### Exemplos de uso
+### Gestão de Banca
 
-```powershell
-# Windows PowerShell
-$env:DATA_DIR="storage"; python main.py
-$env:DATA_RETENTION_DAYS="7"; python main.py
-```
+| Variável | Descrição | Padrão |
+|----------|-----------|--------|
+| `BANK_INITIAL` | Banca inicial em R$ | `1000` |
+| `BANK_DAILY_GOAL_PERCENT` | Meta diária (%) | `50` |
+| `BANK_BET_PERCENT` | Aposta base (%) | `10` |
 
-```bash
-# Linux/Mac
-DATA_DIR=storage python main.py
-DATA_RETENTION_DAYS=7 python main.py
-```
+### Sistema
+
+| Variável | Descrição | Padrão |
+|----------|-----------|--------|
+| `DATA_DIR` | Diretório do banco de dados | `data` |
 
 ---
 
@@ -263,14 +330,28 @@ O bot inclui um sistema completo de relatórios para acompanhar seus resultados.
 ### Comandos Disponíveis
 
 ```powershell
-# Relatório de hoje
+Relatório de hoje:
 python report.py
 
-# Resumo de todos os dias
+Resumo de todos os dias:
 python report.py all
 
-# Relatório de uma data específica
-python report.py YYYY-MM-DD
+Status da banca + janela de operação:
+python report.py bank
+
+Janela de operação atual:
+python report.py window
+
+Relatório mensal:
+python report.py month
+python report.py month 2026-01
+
+Resetar banca:
+python report.py reset        
+python report.py reset 2000
+
+Relatório de uma data específica:
+python report.py 2026-01-08
 ```
 
 ### Exemplo de Relatório Diário
@@ -296,7 +377,7 @@ python report.py YYYY-MM-DD
    🥉 3ª entrada: 1
 
 💰 RESULTADO FINANCEIRO
-   🟢 LUCRO: +R$ 30.00
+   🟢 LUCRO: +R$ 60.00
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -308,13 +389,13 @@ python report.py YYYY-MM-DD
 📊 RESUMO GERAL - TODOS OS DIAS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-📅 2026-01-05 | 🟢 +R$ 25.00
+📅 2026-01-05 | 🟢 +R$ 50.00
    WIN: 5 | LOSS: 0 | CANCEL: 1 | Taxa: 100.0%
 
-📅 2026-01-06 | 🔴 -R$ 35.00
+📅 2026-01-06 | 🔴 -R$ 70.00
    WIN: 21 | LOSS: 4 | CANCEL: 11 | Taxa: 84.0%
 
-📅 2026-01-07 | 🟢 +R$ 30.00
+📅 2026-01-07 | 🟢 +R$ 60.00
    WIN: 6 | LOSS: 0 | CANCEL: 1 | Taxa: 100.0%
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -322,7 +403,7 @@ python report.py YYYY-MM-DD
    Sinais: 49 | Apostas: 36
    WIN: 32 | LOSS: 4 | CANCEL: 13
    Taxa de acerto: 88.9%
-   🟢 LUCRO TOTAL: +R$ 20.00
+   🟢 LUCRO TOTAL: +R$ 40.00
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -330,11 +411,13 @@ python report.py YYYY-MM-DD
 
 O relatório calcula automaticamente baseado na estratégia Martingale:
 
-| Resultado | Valor |
-|-----------|-------|
-| WIN (1ª, 2ª ou 3ª entrada) | +R$ 5,00 |
-| LOSS (stop loss) | -R$ 35,00 |
+| Resultado | Valor (base R$ 100) |
+|-----------|---------------------|
+| WIN (qualquer entrada) | +1% = +R$ 10,00 |
+| LOSS (stop loss) | -7% = -R$ 70,00 |
 | CANCELLED | R$ 0,00 |
+
+> **Nota**: Os valores são proporcionais à banca. Com banca de R$ 2000, o WIN seria +R$ 20 e LOSS seria -R$ 140.
 
 ---
 

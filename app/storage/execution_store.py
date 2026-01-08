@@ -1,37 +1,121 @@
-import json
-import os
-from datetime import datetime, timedelta
-
-DATA_DIR = os.getenv("DATA_DIR", "data")
-FILE_PATH = os.path.join(DATA_DIR, "executions.json")
-
-RETENTION_DAYS = int(os.getenv("DATA_RETENTION_DAYS", "3"))
+from datetime import datetime
+from app.storage.database import get_db
 
 def save_execution(result: dict):
-    data = []
+    with get_db() as conn:
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            INSERT INTO executions (signal_id, status, attempts, saved_at)
+            VALUES (?, ?, ?, ?)
+        """, (
+            result.get("signal_id"),
+            result["status"],
+            result.get("attempts", 0),
+            datetime.now().isoformat()
+        ))
 
-    if os.path.exists(FILE_PATH):
-        with open(FILE_PATH, "r", encoding="utf-8") as f:
-            try:
-                data = json.load(f)
-            except json.JSONDecodeError:
-                data = []
+def load_executions() -> list:
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT signal_id, status, attempts, saved_at
+            FROM executions
+            ORDER BY saved_at DESC
+        """)
+        
+        rows = cursor.fetchall()
+        return [
+            {
+                "signal_id": row["signal_id"],
+                "status": row["status"],
+                "attempts": row["attempts"],
+                "saved_at": row["saved_at"]
+            }
+            for row in rows
+        ]
 
-    data.append({
-        **result,
-        "saved_at": datetime.now().isoformat()
-    })
+def load_executions_by_date(target_date: str) -> list:
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT signal_id, status, attempts, saved_at
+            FROM executions
+            WHERE DATE(saved_at) = ?
+            ORDER BY saved_at
+        """, (target_date,))
+        
+        rows = cursor.fetchall()
+        return [
+            {
+                "signal_id": row["signal_id"],
+                "status": row["status"],
+                "attempts": row["attempts"],
+                "saved_at": row["saved_at"]
+            }
+            for row in rows
+        ]
 
-    keep_from_date = (datetime.now() - timedelta(days=RETENTION_DAYS - 1)).date()
-    def _keep(entry):
-        try:
-            sa = datetime.fromisoformat(entry.get("saved_at"))
-            return sa.date() >= keep_from_date
-        except Exception:
-            return False
+def get_executions_summary(target_date: str = None) -> dict:
+    with get_db() as conn:
+        cursor = conn.cursor()
+        
+        if target_date:
+            cursor.execute("""
+                SELECT 
+                    status,
+                    COUNT(*) as count,
+                    SUM(attempts) as total_attempts
+                FROM executions
+                WHERE DATE(saved_at) = ?
+                GROUP BY status
+            """, (target_date,))
+        else:
+            cursor.execute("""
+                SELECT 
+                    status,
+                    COUNT(*) as count,
+                    SUM(attempts) as total_attempts
+                FROM executions
+                GROUP BY status
+            """)
+        
+        rows = cursor.fetchall()
+        
+        summary = {"win": 0, "loss": 0, "cancelled": 0, "total_attempts": 0}
+        for row in rows:
+            summary[row["status"]] = row["count"]
+            if row["status"] in ["win", "loss"]:
+                summary["total_attempts"] += row["total_attempts"] or 0
+        
+        return summary
 
-    data = [x for x in data if _keep(x)]
-
-    os.makedirs(DATA_DIR, exist_ok=True)
-    with open(FILE_PATH, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+def get_executions_by_hour(target_date: str = None) -> list:
+    with get_db() as conn:
+        cursor = conn.cursor()
+        
+        if target_date:
+            cursor.execute("""
+                SELECT 
+                    CAST(strftime('%H', saved_at) AS INTEGER) as hour,
+                    status,
+                    COUNT(*) as count,
+                    AVG(attempts) as avg_attempts
+                FROM executions
+                WHERE DATE(saved_at) = ?
+                GROUP BY hour, status
+                ORDER BY hour
+            """, (target_date,))
+        else:
+            cursor.execute("""
+                SELECT 
+                    CAST(strftime('%H', saved_at) AS INTEGER) as hour,
+                    status,
+                    COUNT(*) as count,
+                    AVG(attempts) as avg_attempts
+                FROM executions
+                GROUP BY hour, status
+                ORDER BY hour
+            """)
+        
+        return [dict(row) for row in cursor.fetchall()]

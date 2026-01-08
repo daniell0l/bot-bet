@@ -1,10 +1,6 @@
-import json
-import os
 from datetime import datetime, date
 from collections import defaultdict
-
-DATA_DIR = os.getenv("DATA_DIR", "data")
-EXECUTIONS_PATH = os.path.join(DATA_DIR, "executions.json")
+from app.storage.database import get_db
 
 BET_TABLE = {
     1: {"bet": 5, "profit": 5},
@@ -14,34 +10,33 @@ BET_TABLE = {
 
 TOTAL_LOSS = 35
 
-
 def load_executions() -> list:
-    """Carrega todas as execuções do arquivo."""
-    if not os.path.exists(EXECUTIONS_PATH):
-        return []
-    
-    with open(EXECUTIONS_PATH, "r", encoding="utf-8") as f:
-        try:
-            return json.load(f)
-        except json.JSONDecodeError:
-            return []
-
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT signal_id, status, attempts, saved_at
+            FROM executions
+            ORDER BY saved_at
+        """)
+        
+        return [dict(row) for row in cursor.fetchall()]
 
 def get_executions_by_date(target_date: date = None) -> list:
-    """Retorna execuções de uma data específica (padrão: hoje)."""
     if target_date is None:
         target_date = date.today()
     
-    executions = load_executions()
-    
-    return [
-        e for e in executions
-        if datetime.fromisoformat(e["saved_at"]).date() == target_date
-    ]
-
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT signal_id, status, attempts, saved_at
+            FROM executions
+            WHERE DATE(saved_at) = ?
+            ORDER BY saved_at
+        """, (str(target_date),))
+        
+        return [dict(row) for row in cursor.fetchall()]
 
 def calculate_profit(execution: dict) -> float:
-    """Calcula o lucro/prejuízo de uma execução."""
     status = execution.get("status")
     attempts = execution.get("attempts", 0)
     
@@ -56,9 +51,7 @@ def calculate_profit(execution: dict) -> float:
     
     return 0.0
 
-
 def generate_daily_report(target_date: date = None) -> dict:
-    """Gera relatório completo de um dia."""
     if target_date is None:
         target_date = date.today()
     
@@ -105,7 +98,6 @@ def generate_daily_report(target_date: date = None) -> dict:
 
 
 def print_daily_report(target_date: date = None):
-    """Imprime relatório formatado no console."""
     report = generate_daily_report(target_date)
     
     sep = "━" * 40
@@ -143,19 +135,19 @@ def print_daily_report(target_date: date = None):
     
     return report
 
-
 def print_summary_all_days():
-    """Imprime resumo de todos os dias disponíveis."""
-    executions = load_executions()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT DISTINCT DATE(saved_at) as exec_date
+            FROM executions
+            ORDER BY exec_date
+        """)
+        dates = [row["exec_date"] for row in cursor.fetchall()]
     
-    if not executions:
+    if not dates:
         print("Nenhuma execução encontrada.")
         return
-    
-    by_date = defaultdict(list)
-    for e in executions:
-        d = datetime.fromisoformat(e["saved_at"]).date()
-        by_date[d].append(e)
     
     sep = "━" * 50
     print(f"\n{sep}")
@@ -167,8 +159,9 @@ def print_summary_all_days():
     total_loss = 0
     total_cancelled = 0
     
-    for d in sorted(by_date.keys()):
-        report = generate_daily_report(d)
+    for d in dates:
+        target_date = datetime.strptime(d, "%Y-%m-%d").date()
+        report = generate_daily_report(target_date)
         total_profit += report['profit']
         total_win += report['win']
         total_loss += report['loss']
@@ -198,7 +191,6 @@ def print_summary_all_days():
         print(f"   ⚪ NEUTRO: R$ 0,00")
     
     print(f"{sep}\n")
-
 
 if __name__ == "__main__":
     print_daily_report()
