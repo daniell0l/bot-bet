@@ -5,7 +5,6 @@ from app.core.bank_manager import can_operate, register_result, get_status, get_
 from app.extractors.double_result_extractor import DoubleResultExtractor
 from app.storage.execution_store import save_execution
 
-
 class PlaywrightSimulatorExecutor:
     def __init__(self, page):
         self.extractor = DoubleResultExtractor(page)

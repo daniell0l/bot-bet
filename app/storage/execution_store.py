@@ -1,9 +1,7 @@
 from datetime import datetime
 from app.storage.database import get_db
 
-
 def save_execution(result: dict):
-    """Salva o resultado de uma execução"""
     with get_db() as conn:
         cursor = conn.cursor()
         
@@ -17,9 +15,7 @@ def save_execution(result: dict):
             datetime.now().isoformat()
         ))
 
-
 def load_executions() -> list:
-    """Carrega todas as execuções"""
     with get_db() as conn:
         cursor = conn.cursor()
         cursor.execute("""
@@ -39,9 +35,7 @@ def load_executions() -> list:
             for row in rows
         ]
 
-
 def load_executions_by_date(target_date: str) -> list:
-    """Carrega execuções de uma data específica"""
     with get_db() as conn:
         cursor = conn.cursor()
         cursor.execute("""
@@ -62,9 +56,7 @@ def load_executions_by_date(target_date: str) -> list:
             for row in rows
         ]
 
-
 def get_executions_summary(target_date: str = None) -> dict:
-    """Retorna resumo das execuções (wins, losses, cancelled)"""
     with get_db() as conn:
         cursor = conn.cursor()
         
@@ -98,9 +90,7 @@ def get_executions_summary(target_date: str = None) -> dict:
         
         return summary
 
-
 def get_executions_by_hour(target_date: str = None) -> list:
-    """Retorna execuções agrupadas por hora para análise"""
     with get_db() as conn:
         cursor = conn.cursor()
         

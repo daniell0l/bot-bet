@@ -10,9 +10,7 @@ BET_TABLE = {
 
 TOTAL_LOSS = 35
 
-
 def load_executions() -> list:
-    """Carrega todas as execuções do banco."""
     with get_db() as conn:
         cursor = conn.cursor()
         cursor.execute("""
@@ -23,9 +21,7 @@ def load_executions() -> list:
         
         return [dict(row) for row in cursor.fetchall()]
 
-
 def get_executions_by_date(target_date: date = None) -> list:
-    """Retorna execuções de uma data específica (padrão: hoje)."""
     if target_date is None:
         target_date = date.today()
     
@@ -40,9 +36,7 @@ def get_executions_by_date(target_date: date = None) -> list:
         
         return [dict(row) for row in cursor.fetchall()]
 
-
 def calculate_profit(execution: dict) -> float:
-    """Calcula o lucro/prejuízo de uma execução."""
     status = execution.get("status")
     attempts = execution.get("attempts", 0)
     
@@ -57,9 +51,7 @@ def calculate_profit(execution: dict) -> float:
     
     return 0.0
 
-
 def generate_daily_report(target_date: date = None) -> dict:
-    """Gera relatório completo de um dia."""
     if target_date is None:
         target_date = date.today()
     
@@ -106,7 +98,6 @@ def generate_daily_report(target_date: date = None) -> dict:
 
 
 def print_daily_report(target_date: date = None):
-    """Imprime relatório formatado no console."""
     report = generate_daily_report(target_date)
     
     sep = "━" * 40
@@ -144,9 +135,7 @@ def print_daily_report(target_date: date = None):
     
     return report
 
-
 def print_summary_all_days():
-    """Imprime resumo de todos os dias disponíveis."""
     with get_db() as conn:
         cursor = conn.cursor()
         cursor.execute("""
@@ -202,7 +191,6 @@ def print_summary_all_days():
         print(f"   ⚪ NEUTRO: R$ 0,00")
     
     print(f"{sep}\n")
-
 
 if __name__ == "__main__":
     print_daily_report()

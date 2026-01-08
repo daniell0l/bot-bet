@@ -7,14 +7,11 @@ from app.storage.execution_store import save_execution
 
 COLORS = ["PRETA", "VERMELHA"]
 
-
 def get_fake_result():
     return random.choice(COLORS)
 
-
 def fake_place_bet(value: int, color: str):
     print(f" Apostando {value} na {color}")
-
 
 async def execute_signal(signal: dict):
     signal_id = str(uuid.uuid4())[:8]
