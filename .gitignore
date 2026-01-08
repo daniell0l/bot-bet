@@ -9,3 +9,6 @@ logs/
 .idea/
 .vscode/
 bet_session.session-journal
+data/bot.db
+data/backup_json/
+data/*.json

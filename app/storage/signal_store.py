@@ -1,94 +1,134 @@
-import json
-import os
-from datetime import date, datetime, timedelta
+from datetime import date
+from app.storage.database import get_db
 
-DATA_DIR = os.getenv("DATA_DIR", "data")
-STORAGE_DIR = DATA_DIR
-STORAGE_PATH = os.path.join(STORAGE_DIR, "signals.json")
-
-RETENTION_DAYS = int(os.getenv("DATA_RETENTION_DAYS", "3"))
-
-def _default_data():
-    return {
-        "signals": []
-    }
-
-def _load_data():
-    if not os.path.exists(STORAGE_PATH):
-        return _default_data()
-
-    with open(STORAGE_PATH, "r", encoding="utf-8") as f:
-        try:
-            return json.load(f)
-        except json.JSONDecodeError:
-            data = _default_data()
-            _save_data(data)
-            return data
-
-def _save_data(data):
-    os.makedirs(STORAGE_DIR, exist_ok=True)
-    with open(STORAGE_PATH, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
 
 def add_signal(signal: dict):
-    data = _load_data()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        
+        signal_date = signal.get("date", str(date.today()))
+        
+        cursor.execute("""
+            INSERT INTO signals (signal_id, message_id, signal_index, time, color, number, date)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (
+            signal.get("id"),
+            signal.get("message_id"),
+            signal.get("index"),
+            signal["time"],
+            signal["color"],
+            signal["number"],
+            signal_date
+        ))
 
-    s = {**signal}
-    if "date" not in s:
-        s["date"] = str(date.today())
-
-    data["signals"].append(s)
-
-    keep_from = date.today() - timedelta(days=RETENTION_DAYS - 1)
-    def _keep(sig):
-        try:
-            sig_date = datetime.strptime(sig.get("date", ""), "%Y-%m-%d").date()
-            return sig_date >= keep_from
-        except Exception:
-            return False
-
-    data["signals"] = [x for x in data.get("signals", []) if _keep(x)]
-
-    _save_data(data)
 
 def load_signals() -> list:
-    data = _load_data()
-
     today = str(date.today())
-    return [s for s in data.get("signals", []) if s.get("date") == today]
+    
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT signal_id, message_id, signal_index, time, color, number, date
+            FROM signals 
+            WHERE date = ? AND cancelled = 0
+        """, (today,))
+        
+        rows = cursor.fetchall()
+        return [
+            {
+                "id": row["signal_id"],
+                "message_id": row["message_id"],
+                "index": row["signal_index"],
+                "time": row["time"],
+                "color": row["color"],
+                "number": row["number"],
+                "date": row["date"]
+            }
+            for row in rows
+        ]
+
 
 def update_signal_time(old_time: str, color: str, number: int, new_time: str) -> bool:
-    data = _load_data()
     today = str(date.today())
     
-    for signal in data.get("signals", []):
-        if (signal.get("color") == color and 
-            signal.get("number") == number and 
-            signal.get("date") == today and
-            signal.get("time") == old_time):
-            
-            signal["time"] = new_time
-            _save_data(data)
-            return True
-    
-    return False
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE signals 
+            SET time = ?
+            WHERE time = ? AND color = ? AND number = ? AND date = ? AND cancelled = 0
+        """, (new_time, old_time, color, number, today))
+        
+        return cursor.rowcount > 0
+
 
 def remove_signal(time: str, color: str, number: int) -> bool:
-    data = _load_data()
     today = str(date.today())
     
-    original_count = len(data.get("signals", []))
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE signals 
+            SET cancelled = 1
+            WHERE time = ? AND color = ? AND number = ? AND date = ? AND cancelled = 0
+        """, (time, color, number, today))
+        
+        return cursor.rowcount > 0
+
+
+def cancel_signal_by_message(message_id: int, signal_index: int) -> dict | None:
+    today = str(date.today())
     
-    data["signals"] = [
-        s for s in data.get("signals", [])
-        if not (s.get("time") == time and 
-                s.get("color") == color and 
-                s.get("number") == number and 
-                s.get("date") == today)
-    ]
+    with get_db() as conn:
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            SELECT time, color, number 
+            FROM signals 
+            WHERE message_id = ? AND signal_index = ? AND date = ? AND cancelled = 0
+        """, (message_id, signal_index, today))
+        
+        row = cursor.fetchone()
+        if not row:
+            return None
+        
+        signal_data = {
+            "time": row["time"],
+            "color": row["color"],
+            "number": row["number"]
+        }
+        
+        cursor.execute("""
+            UPDATE signals 
+            SET cancelled = 1
+            WHERE message_id = ? AND signal_index = ? AND date = ?
+        """, (message_id, signal_index, today))
+        
+        return signal_data
+
+
+def get_signal_by_message(message_id: int, signal_index: int) -> dict | None:
+    today = str(date.today())
     
-    if len(data.get("signals", [])) < original_count:
-        _save_data(data)
-        return True
-    
-    return False
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT signal_id, message_id, signal_index, time, color, number, date, cancelled
+            FROM signals 
+            WHERE message_id = ? AND signal_index = ? AND date = ?
+        """, (message_id, signal_index, today))
+        
+        row = cursor.fetchone()
+        if not row:
+            return None
+        
+        return {
+            "id": row["signal_id"],
+            "message_id": row["message_id"],
+            "index": row["signal_index"],
+            "time": row["time"],
+            "color": row["color"],
+            "number": row["number"],
+            "date": row["date"],
+            "cancelled": bool(row["cancelled"])
+        }
