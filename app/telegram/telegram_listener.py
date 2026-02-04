@@ -27,8 +27,9 @@ def _is_target_chat(chat):
     titles = os.getenv("SIGNAL_CHAT_TITLES", "").split(",")
     ids = os.getenv("SIGNAL_CHAT_IDS", "").split(",")
 
+    chat_title = getattr(chat, "title", None)
     return (
-        any(t.strip() and t.strip() in (chat.title or "") for t in titles) or
+        any(t.strip() and t.strip() in (chat_title or "") for t in titles) or
         any(str(chat.id) == cid.strip() for cid in ids)
     )
 
