@@ -1,11 +1,14 @@
 import asyncio
 from datetime import datetime, timedelta
-from app.executors.executor_playwright_simulator import PlaywrightSimulatorExecutor
+from typing import Dict
 
-scheduled_tasks: dict[tuple, asyncio.Task] = {}
+scheduled_tasks: Dict[str, asyncio.Task] = {}
 
-def build_key(signal: dict) -> tuple:
-    return (signal["time"], signal["color"], signal["number"])
+def build_key(signal: dict) -> str:
+    if "id" in signal:
+        return signal["id"]
+
+    return f"{signal.get('message_id')}_{signal.get('index')}"
 
 def cancel_scheduled_signal(signal: dict):
     key = build_key(signal)
@@ -19,7 +22,9 @@ async def schedule_signal(signal: dict, executor):
 
     now = datetime.now()
     signal_time = datetime.strptime(signal["time"], "%H:%M").replace(
-        year=now.year, month=now.month, day=now.day
+        year=now.year,
+        month=now.month,
+        day=now.day
     )
 
     if signal_time <= now:
@@ -33,17 +38,16 @@ async def schedule_signal(signal: dict, executor):
     finally:
         scheduled_tasks.pop(key, None)
 
-async def start_scheduler(page):
+async def start_scheduler(executor):
     from app.shared.signal_queue import signal_queue
     from app.storage.signal_store import load_signals
 
-    executor = PlaywrightSimulatorExecutor(page)
-
     for signal in load_signals():
         key = build_key(signal)
-        scheduled_tasks[key] = asyncio.create_task(
-            schedule_signal(signal, executor)
-        )
+        if key not in scheduled_tasks:
+            scheduled_tasks[key] = asyncio.create_task(
+                schedule_signal(signal, executor)
+            )
 
     while True:
         signal = await signal_queue.get()

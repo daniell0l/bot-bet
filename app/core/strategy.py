@@ -1,5 +1,6 @@
 class MartingaleStrategy:
-    def __init__(self, base_bet=5, max_losses=3):
+    def __init__(self, executor, base_bet=5, max_losses=3):
+        self.executor = executor
         self.base_bet = base_bet
         self.max_losses = max_losses
 
@@ -28,7 +29,13 @@ class MartingaleStrategy:
         bet = self.base_bet
 
         for i in range(1, self.max_losses + 1):
-            print(f"\n💰 Entrada {i}º → {bet}=R$ {signal['color']}")
+            print(f"\n💰 Entrada {i}º → R$ {bet} | {signal['color']}")
+
+            await self.executor.place_bet(
+                color=signal["color"].lower(),
+                value=bet
+            )
+
             r = (await get_result())["valid"]
             print(f"🎲 Resultado: {r['color']} - Nº {r['number']}")
 

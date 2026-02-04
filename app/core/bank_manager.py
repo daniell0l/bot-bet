@@ -113,8 +113,11 @@ def _update_today_stats(profit: float = None, wins: int = None, losses: int = No
         ))
 
 def get_base_bet() -> float:
+    import math
     config = _get_bank_config()
-    return round(config["current_bank"] * (config["bet_percent"] / 100), 2)
+    valor = config["current_bank"] * (config["bet_percent"] / 100)
+    valor_arredondado = math.floor(valor)
+    return max(1, valor_arredondado)
 
 def get_daily_goal() -> float:
     config = _get_bank_config()
